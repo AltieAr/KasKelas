@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $students = [
             ['nama' => 'ADRIAN DWI LAKSONO', 'no_absen' => 1],
             ['nama' => 'AMARSYA TERANO', 'no_absen' => 2],
-            ['nama' => 'ANAG EKO FIRMANSAH', 'no_absen' => 3],
+            ['nama' => 'ANANG EKO FIRMANSAH', 'no_absen' => 3],
             ['nama' => 'APRILIYAN BINTEK PURNAMASARI', 'no_absen' => 4],
             ['nama' => 'AULIA SYIFA KUMALA', 'no_absen' => 5],
             ['nama' => 'DELTYN PUTRA UTAMA', 'no_absen' => 6],
@@ -49,6 +49,8 @@ class DatabaseSeeder extends Seeder
         foreach($students as $student) {
             Student::create($student);
         }
+
+
 
 
     }
