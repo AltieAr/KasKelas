@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Student;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -49,6 +49,12 @@ class DatabaseSeeder extends Seeder
         foreach($students as $student) {
             Student::create($student);
         }
+
+        User::create([
+            'name' => 'Admin',
+            'password' => bcrypt('Password123'),
+            'email' => 'Admin123@gmail.com'
+        ]);
 
 
 
