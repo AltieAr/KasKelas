@@ -117,7 +117,25 @@ class KasPeriodController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $cont = KasPeriod::findOrFail($id);
+        $request->validate([
+            'nama_periode' => 'sometimes|string|max:150',
+            'nominal_tagihan' => 'sometimes|numeric|min:0',
+            'tanggal_jatuh_tempo' => 'sometimes|date|unique:kas_periods,tanggal_jatuh_tempo'
+        ]);
+
+        // $up = KasPeriod::update($request->all());
+        $up = $cont->update($request->all());
+        $temp = $request->all();
+        return response()->json([
+            'status' => 'succes',
+            'data' => $temp
+        ]);
+
+        // dd($cont->id);
+
+
+
     }
 
     /**

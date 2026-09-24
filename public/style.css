@@ -1,0 +1,29 @@
+/* style.css */
+body {
+    background-color: #f4f7f6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.table-custom th {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Menyembunyikan form secara default */
+.d-none {
+    display: none !important;
+}
+
+#rekapData {
+    background-color: #212529;
+    color: #00ff00;
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 400px;
+}

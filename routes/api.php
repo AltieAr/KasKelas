@@ -30,6 +30,7 @@ Route::post('/transaction',[TransactionController::class, 'store']);
 Route::get('/kas-period', [KasPeriodController::class, 'index']);
 Route::post('/kas-period', [KasPeriodController::class, 'store']);
 Route::get('/periods/{id}/status', [KasPeriodController::class, 'statusPembayaran']);
+Route::put('/periods/update/{id}', [KasPeriodController::class, 'update']);
 
 
 
