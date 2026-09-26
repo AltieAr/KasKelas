@@ -174,6 +174,82 @@ async function cekRekap(studentId) {
     }
 }
 
+// 1. Tambahkan fungsi ini untuk mengisi otomatis tanggal di dalam modal
+function initDateForms() {
+    const today = new Date();
+
+    // Format hari ini: "Kamis, 26 September 2026"
+    const formattedToday = today.toLocaleDateString('id-ID', {
+        weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
+    });
+
+    const todayDisplay = document.getElementById('todayDateDisplay');
+    if(todayDisplay) todayDisplay.value = formattedToday;
+
+    // Otomatis atur "Jatuh Tempo" ke 7 hari dari sekarang
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    const yyyy = nextWeek.getFullYear();
+    const mm = String(nextWeek.getMonth() + 1).padStart(2, '0');
+    const dd = String(nextWeek.getDate()).padStart(2, '0');
+
+    const dateInput = document.getElementById('periodDate');
+    if(dateInput) dateInput.value = `${yyyy}-${mm}-${dd}`;
+}
+
+// 2. Cari fungsi showDashboard() yang lama, dan tambahkan pemanggilan initDateForms() di dalamnya
+function showDashboard() {
+    document.getElementById('loginSection').classList.add('d-none');
+    document.getElementById('btnLogout').classList.remove('d-none');
+    document.getElementById('dashboardSection').classList.remove('d-none');
+
+    fetchStudents();
+    fetchPeriods();
+    initDateForms(); // <-- Tambahkan baris ini
+}
+
+// 3. Timpa fungsi submitPeriod yang lama dengan versi ini
+async function submitPeriod() {
+    const nama_periode = document.getElementById('periodName').value;
+    const nominal_tagihan = document.getElementById('periodNominal').value;
+    const tanggal_jatuh_tempo = document.getElementById('periodDate').value;
+    const token = localStorage.getItem('api_token');
+
+    if (!nama_periode || !nominal_tagihan || !tanggal_jatuh_tempo) {
+        return showAlert('Harap isi semua kolom periode!', 'warning');
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/kas-period`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ nama_periode, nominal_tagihan, tanggal_jatuh_tempo })
+        });
+
+        if (response.ok) {
+            showAlert('Periode baru berhasil ditambahkan!', 'success');
+
+            // Tutup Pop-up Modal secara otomatis menggunakan API Bootstrap
+            const modalElement = document.getElementById('modalTambahPeriode');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if(modalInstance) modalInstance.hide();
+
+            // Kosongkan form nama periode saja, biarkan nominal dan tanggal tetap
+            document.getElementById('periodName').value = '';
+
+            // Refresh tabel periode dan dropdown pengecekan status
+            fetchPeriods();
+        } else {
+            const res = await response.json();
+            showAlert(res.message || 'Gagal menyimpan periode', 'danger');
+        }
+    } catch (error) { console.error('Error saving period:', error); }
+}
+
 function showDashboard() {
     document.getElementById('loginSection').classList.add('d-none');
     document.getElementById('btnLogout').classList.remove('d-none');

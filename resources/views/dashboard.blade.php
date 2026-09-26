@@ -90,6 +90,72 @@
             </div>
         </div>
 
+        <!-- Baris Tengah: Tabel Daftar Periode -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold"><i class="bi bi-list-task text-primary"></i> Daftar Periode Kas</h5>
+                        <!-- Tombol Pemicu Modal -->
+                        <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalTambahPeriode">
+                            <i class="bi bi-plus-lg"></i> Tambah Periode
+                        </button>
+                    </div>
+                    <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                        <table class="table table-hover table-bordered table-custom" id="periodsTable">
+                            <thead class="sticky-top">
+                                <tr>
+                                    <th>Nama Periode</th>
+                                    <th class="text-end">Nominal</th>
+                                    <th class="text-center">Tgl Dibuat</th>
+                                    <th class="text-center">Jatuh Tempo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data disuntikkan dari JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pop-up Tambah Periode -->
+        <div class="modal fade" id="modalTambahPeriode" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title fw-bold" id="modalLabel"><i class="bi bi-calendar-plus"></i> Buat Periode Baru</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Info Hari Ini (Readonly) -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Tanggal Dibuat (Hari Ini)</label>
+                            <input type="text" id="todayDateDisplay" class="form-control bg-light" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nama Periode</label>
+                            <input type="text" id="periodName" class="form-control" placeholder="Contoh: Minggu 1 September">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nominal Tagihan (Rp)</label>
+                            <input type="number" id="periodNominal" class="form-control" value="5000">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tanggal Jatuh Tempo</label>
+                            <input type="date" id="periodDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" onclick="submitPeriod()" class="btn btn-primary fw-bold">Simpan Periode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Baris Bawah: Laporan Periode (Fitur Baru) -->
         <div class="row mt-4">
             <div class="col-12">
