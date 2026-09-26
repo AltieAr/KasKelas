@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://kas-kelas.test/api';
+const API_BASE_URL = '/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('api_token');
